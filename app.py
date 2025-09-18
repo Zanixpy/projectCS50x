@@ -14,12 +14,17 @@ conn.execute("PRAGMA foreign_keys = ON;")
 conn.execute("PRAGMA case_sensitive_like = ON;")
 
 # Access the db to edit
-db = conn.cursor()
+conn_db= conn
+db = conn_db.cursor()
 
 # Checking for lauching the creation of db
 with open("schema.sql", "r") as f:
     sql_script = f.read()
-    db.executescript(sql_script)
+
+
+db.executescript(sql_script)
+
+
 
 
 
