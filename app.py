@@ -5,7 +5,11 @@ import sqlite3
 app = Flask(__name__)
 
 # Connecting my db
-def get_db():
+
+
+
+with app.app_context():
+    # Access the db to edit
     conn = sqlite3.connect('quiz.db')
     conn.row_factory = sqlite3.Row
     # Activate foreign key option
@@ -13,10 +17,8 @@ def get_db():
     # Activate sensitivy case for LIKE
     conn.execute("PRAGMA case_sensitive_like = ON;")
     g.db = conn
-    return g.db
+    db = g.db
 
-# Access the db to edit
-db = get_db()
 
 # Checking for lauching the creation of db
 with open("schema.sql", "r") as f:
@@ -31,7 +33,7 @@ db.executescript(sql_script)
 
 @app.route("/")
 def home():
-    themes = dbF.execute("SELECT * FROM theme;")
+    themes = db.execute("SELECT * FROM theme;")
     print(themes)
     return render_template("quiz.html")
 
