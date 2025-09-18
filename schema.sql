@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS records(
     FOREIGN KEY (theme_id) REFERENCES theme(id)
 );
 
-INSERT OR IGNORE INTO theme (id, name) VALUES (1, "Anime", "/anime");
-INSERT OR IGNORE INTO theme (id, name) VALUES (2, "Manhwa", "/manhwa");
+INSERT OR IGNORE INTO theme (id, name, path) VALUES (1, "Anime", "/anime");
+INSERT OR IGNORE INTO theme (id, name, path) VALUES (2, "Manhwa", "/manhwa");
 
 INSERT OR IGNORE INTO questions (theme_id, question) VALUES
     (1, "In Naruto, what is the name of the fox demon sealed inside Naruto?"),
