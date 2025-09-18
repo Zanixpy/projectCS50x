@@ -28,14 +28,13 @@ def home():
     return render_template("quiz.html")
 
 @app.route("/anime")
-def home():
-
-    return render_template("anime.html")
+def anime():
+    themes = db.execute("SELECT * FROM theme")
+    return render_template("anime.html", name="Anime")
 
 @app.route("/manhwa")
-def home():
-
-    return render_template("manhwa.html")
+def manhwa():
+    return render_template("manhwa.html", name="Manhwa")
 
 
 conn.commit()

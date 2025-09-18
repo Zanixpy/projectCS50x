@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block style %}
+<link href="../static/style.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block title %}
+    Quiz
+{% endblock %}
+
+
+{% block main %}
+        <header>
+            <h1>Quiz</h1>
+            <p>Veuillez séléctionner le thème du quiz :</p>
+        </header>
+
+        <nav class="theme">
+            {% for theme in themes %}
+                <a href="{{theme.path}}">{{theme.name}}</a>
+         </nav>
+{% endblock %}
