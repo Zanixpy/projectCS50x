@@ -14,16 +14,22 @@ conn.execute("PRAGMA foreign_keys = ON;")
 conn.execute("PRAGMA case_sensitive_like = ON;")
 
 # Access the db to edit
-g.con = conn
-dbF = g.con
-db = dbF.cursor()
+def get_db():
+    if 'db' not in g:
+        conn = sqlite3.connect(DB)
+        conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA foreign_keys = ON;")
+        g.db = conn
+    return g.db
+
+db = get_db()
 
 # Checking for lauching the creation of db
 with open("schema.sql", "r") as f:
     sql_script = f.read()
 
 
-dbF.executescript(sql_script)
+db.executescript(sql_script)
 
 
 
