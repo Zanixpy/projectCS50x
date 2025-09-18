@@ -19,8 +19,9 @@ db = conn.cursor()
 # Checking for lauching the creation of db
 with open("schema.sql", "r") as f:
     sql_script = f.read()
+    db.executescript(sql_script)
 
-db.executescript(sql_script)
+
 
 @app.route("/")
 def home():
