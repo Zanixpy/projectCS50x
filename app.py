@@ -38,9 +38,10 @@ def manhwa():
 
 @app.route("/api/anime")
 def apiAnime():
+    animeInfo = db.excute("SELECT * FROM")
 
 @app.route("/api/manhwa")
-def
+def apiManhwa():
 
 
 conn.commit()
