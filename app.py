@@ -5,23 +5,17 @@ import sqlite3
 app = Flask(__name__)
 
 # Connecting my db
-conn = sqlite3.connect('quiz.db')
-
-# Activate foreign key option
-conn.execute("PRAGMA foreign_keys = ON;")
-
-# Activate sensitivy case for LIKE
-conn.execute("PRAGMA case_sensitive_like = ON;")
-
-# Access the db to edit
 def get_db():
-    if 'db' not in g:
-        conn = sqlite3.connect(DB)
-        conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA foreign_keys = ON;")
-        g.db = conn
+    conn = sqlite3.connect('quiz.db')
+    conn.row_factory = sqlite3.Row
+    # Activate foreign key option
+    conn.execute("PRAGMA foreign_keys = ON;")
+    # Activate sensitivy case for LIKE
+    conn.execute("PRAGMA case_sensitive_like = ON;")
+    g.db = conn
     return g.db
 
+# Access the db to edit
 db = get_db()
 
 # Checking for lauching the creation of db
