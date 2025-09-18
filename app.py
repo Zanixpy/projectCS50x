@@ -14,15 +14,16 @@ conn.execute("PRAGMA foreign_keys = ON;")
 conn.execute("PRAGMA case_sensitive_like = ON;")
 
 # Access the db to edit
-g.db = conn
-db = (g.db).cursor()
+g.con = conn
+dbF = g.con
+db = dbF.cursor()
 
 # Checking for lauching the creation of db
 with open("schema.sql", "r") as f:
     sql_script = f.read()
 
 
-db.executescript(sql_script)
+dbF.executescript(sql_script)
 
 
 
@@ -30,7 +31,7 @@ db.executescript(sql_script)
 
 @app.route("/")
 def home():
-    themes = db.execute("SELECT * FROM theme;")
+    themes = dbF.execute("SELECT * FROM theme;")
     print(themes)
     return render_template("quiz.html")
 
