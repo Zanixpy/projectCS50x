@@ -36,6 +36,12 @@ def anime():
 def manhwa():
     return render_template("manhwa.html", name="Manhwa")
 
+@app.route("/api/anime")
+def apiAnime():
+
+@app.route("/api/manhwa")
+def
+
 
 conn.commit()
 conn.close()
