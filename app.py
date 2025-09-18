@@ -4,13 +4,19 @@ import sqlite3
 # Configure application
 app = Flask(__name__)
 
-# Connecting my db
-conn = sqlite3.connect('quiz.db')
-
-# Activate foreign key option
-conn.execute("PRAGMA foreign_keys = ON;")
-# Activate sensitivy case for LIKE
-conn.execute("PRAGMA case_sensitive_like = ON;")
+def get_db():
+    """
+    Retourne une connexion sqlite3 propre à la requête courante.
+    Stockée dans flask.g pour éviter le partage entre threads.
+    """
+    if 'db' not in g:
+        conn = sqlite3.connect(str(DATABASE))
+        conn.row_factory = sqlite3.Row
+        # Activer les PRAGMA utiles pour chaque connexion
+        conn.execute("PRAGMA foreign_keys = ON;")
+        conn.execute("PRAGMA case_sensitive_like = ON;")
+        g.db = conn
+    return g.db
 
 db = conn.cursor()
 
