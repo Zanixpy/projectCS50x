@@ -24,7 +24,8 @@ db.executescript(sql_script)
 
 @app.route("/")
 def home():
-
+    themes = db.execute("SELECT * FROM theme;")
+    print(themes)
     return render_template("quiz.html")
 
 @app.route("/anime")
