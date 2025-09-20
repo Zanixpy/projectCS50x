@@ -1,14 +1,21 @@
-export function Quiz(file) {
-    document.querySelector('.ready').addEventListener('click', e => {
-        e.target.remove()
-        Affichage(file)
-        System(file)
-    })
+function display() {
+    let temp = document.querySelector('.struct')
+    let clon = temp.content.cloneNode(true)
+    clon.querySelector('.question').content = "Who's mc in Naruto ?"
+
+    let listans = ["Naruto","Sasuke","Sakura"]
+    let getinput = clon.querySelectorAll('.ans')
+    console.log(getinput)
+
+    for (let i = 0; i < listans.length; i++) {
+        getinput[i].innerText = listans[i]   
+    }
+
+    document.body.append(clon)
 }
-window.val=0
 
-
-function Affichage(x) {
+display()
+/*function Affichage(x) {
     const temp= document.querySelector('.struct')
     const clone= temp.content.cloneNode(true)
     clone.querySelector('.question').innerText=x[window.val].question
@@ -51,4 +58,4 @@ function System(y) {
 function FinQuiz() {
     const mainAct = document.querySelector('.mainAct')
     mainAct.innerHTML = "<h2>Quiz terminé !</h2><p>Score : " + document.querySelector('.number').textContent + "</p>"
-}
+}*/

@@ -4,29 +4,21 @@
         <header>
             <h1>{{theme}} Quiz</h1>
         </header>
-        <nav>
-            <a href="/" class="home">HOME</a>
-            <p class="score">score : <span class="number">0</span></p>
-        </nav>
-
-        <div class="mainAct">
-            <p class="ready">Pret ?</p>
-            <template class="struct">
-                <section class="quiz">
-                    <p class="question"></p>
+        <template class="struct">
+                <div class="quiz">
+                    <h2 class="question"></h2>
                     <ul>
-                        <li class="first-li">
-                            <p class="ans first"></p>
-                        </li>
-                        <li class="second-li">
-                            <p class="ans second"></p>
+                        <li class="first-li ans ">
 
                         </li>
-                        <li class="third-li">
-                            <p class="ans third"></p>
+                        <li class="second-li ans ">
+
+                        </li>
+                        <li class="third-li ans ">
+                    
                         </li>
                     </ul>
-                </section>
-            </template>
+                </div>
+        </template>
         </div>
 {% endblock %}
