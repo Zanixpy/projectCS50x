@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS theme(
+CREATE TABLE IF NOT EXISTS themes(
     id INTEGER PRIMARY KEY AUTOINCREMENT ,
     name TEXT NOT NULL,
     path TEXT NOT NULL
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS questions(
     id INTEGER PRIMARY KEY AUTOINCREMENT ,
     theme_id INTEGER NOT NULL,
     question TEXT NOT NULL,
-    FOREIGN KEY (theme_id) REFERENCES theme(id)
+    FOREIGN KEY (theme_id) REFERENCES themes(id)
 );
 
 CREATE TABLE IF NOT EXISTS answers(
@@ -19,17 +19,9 @@ CREATE TABLE IF NOT EXISTS answers(
     FOREIGN KEY (question_id) REFERENCES questions(id)
 );
 
-CREATE TABLE IF NOT EXISTS records(
-    id INTEGER PRIMARY KEY AUTOINCREMENT ,
-    position INTEGER NOT NULL,
-    theme_id INTEGER NOT NULL,
-    username TEXT NOT NULL,
-    score INTEGER NOT NULL,
-    FOREIGN KEY (theme_id) REFERENCES theme(id)
-);
 
-INSERT OR IGNORE INTO theme (id, name, path) VALUES (1, "Anime", "/anime");
-INSERT OR IGNORE INTO theme (id, name, path) VALUES (2, "Manhwa", "/manhwa");
+INSERT OR IGNORE INTO themes (id, name, path) VALUES (1, "Anime", "/anime");
+INSERT OR IGNORE INTO themes (id, name, path) VALUES (2, "Manhwa", "/manhwa");
 
 INSERT OR IGNORE INTO questions (theme_id, question) VALUES
     (1, "In Naruto, what is the name of the fox demon sealed inside Naruto?"),

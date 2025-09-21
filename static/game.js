@@ -1,20 +1,36 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const page = document.body.dataset.page
+    if (page != "quiz") 
+        display()
+})
+
+
 function display() {
     let temp = document.querySelector('.struct')
-    let clon = temp.content.cloneNode(true)
-    clon.querySelector('.question').content = "Who's mc in Naruto ?"
-
-    let listans = ["Naruto","Sasuke","Sakura"]
-    let getinput = clon.querySelectorAll('.ans')
-    console.log(getinput)
-
-    for (let i = 0; i < listans.length; i++) {
-        getinput[i].innerText = listans[i]   
-    }
-
-    document.body.append(clon)
+    let questionlist = [
+        "Who's mc in Naruto ?",
+        "Who's mc in SNK ?",
+        "Who's mc in TK ?"
+    ]
+    let listans = [
+        ["Naruto","Sasuke","Sakura"],
+        ["Eren","Mikasa","Armin"],
+        ["Kaneki","Touka","Amon"]
+    ]
+    for (let i = 0; i < 3; i++) {
+        let clon = temp.content.cloneNode(true)
+        clon.querySelector('.question').innerText = questionlist[i]
+        let getinput = clon.querySelectorAll('.ans')
+          for (let j = 0; j < listans.length; j++) {
+            getinput[j].value = listans[i][j]
+          }
+        document.querySelector('form').prepend(clon)
+    }      
 }
+  
 
-display()
+
+
 /*function Affichage(x) {
     const temp= document.querySelector('.struct')
     const clone= temp.content.cloneNode(true)
