@@ -22,17 +22,8 @@ function display(page) {
     const answers = getAPI("/api/" + page + "/answers")
     console.log(questions, answers)
     let temp = document.querySelector('.struct')
-    let questionlist = [
-        "Who's mc in Naruto ?",
-        "Who's mc in SNK ?",
-        "Who's mc in TK ?"
-    ]
-    let listans = [
-        ["Naruto","Sasuke","Sakura"],
-        ["Eren","Mikasa","Armin"],
-        ["Kaneki","Touka","Amon"]
-    ]
-    for (let i = 0; i < 3; i++) {
+
+    for (let i = 0; i < questions.length; i++) {
         let clon = temp.content.cloneNode(true)
         clon.querySelector('.question').innerText = questionlist[i]
         let getinput = clon.querySelectorAll('.ans')
