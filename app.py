@@ -42,7 +42,7 @@ def manhwa():
 @app.route("/api/anime/questions", methods=["GET"])
 def apiAnimeQ():
     conn = get_db_connection()
-    questions = conn.execute("SELECT * FROM themes;").fetchall()
+    questions = conn.execute("SELECT DISTINCT questions.id, questions.question FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Anime';").fetchall()
     conn.close()
     return jsonify([dict(q) for q in questions])
 
