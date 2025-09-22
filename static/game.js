@@ -5,7 +5,6 @@ async function getAPI(url)
     const response = await fetch(url,
         {
             method: "GET",
-            body: JSON.stringify({ username: "example" })
         });
     if (!response.ok)
         throw new Error(`Response status: ${response.status}`)
