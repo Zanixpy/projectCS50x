@@ -56,16 +56,16 @@ def apiAnimeQ():
 @app.route("/api/anime/answers", methods=["GET"])
 def apiAnimeA():
     conn = get_db_connection()
-    questions = conn.execute("SELECT DISTINCT questions.id AS q_id , answers.id AS ans_id, answers.question_id, answers.answer, answers.is_correct FROM themes, answers, questions WHERE themes.id = questions.theme_id AND question
-s.id = answers.question_id AND themes.name = 'Anime';").fetchall()
+    questions = conn.execute(
+        "SELECT DISTINCT questions.id AS q_id , answers.id AS ans_id, answers.question_id, answers.answer, answers.is_correct FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Anime';").fetchall()
     conn.close()
     return jsonify([dict(q) for q in questions])
 
 @app.route("/api/manhwa/answers", methods=["GET"])
 def apiManhwaA():
     conn = get_db_connection()
-    questions = conn.execute("SELECT DISTINCT questions.id AS q_id , answers.id AS ans_id, answers.question_id, answers.answer, answers.is_correct FROM themes, answers, questions WHERE themes.id = questions.theme_id AND question
-s.id = answers.question_id AND themes.name = 'Manhwa';").fetchall()
+    questions = conn.execute(
+        "SELECT DISTINCT questions.id AS q_id , answers.id AS ans_id, answers.question_id, answers.answer, answers.is_correct FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Manhwa';").fetchall()
     conn.close()
     return jsonify([dict(q) for q in questions])
 
