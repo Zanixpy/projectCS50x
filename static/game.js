@@ -20,7 +20,7 @@ async function getAPI(url)
 
 function display(page) {
     const questions = getAPI("/api/" + page + "/questions")
-    const answers = getAPI("/api/" + page + "answers")
+    const answers = getAPI("/api/" + page + "/answers")
     let temp = document.querySelector('.struct')
     let questionlist = [
         "Who's mc in Naruto ?",
