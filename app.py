@@ -63,7 +63,7 @@ def apiQuestions():
 @app.route("/api/manhwa/questions", methods=["GET"])
 def apiQuestions():
     conn = get_db_connection()
-    questions = conn.execute("SELECT * FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = "Anime";").fetchall()
+    questions = conn.execute("SELECT * FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Anime';").fetchall()
     conn.close()
     return jsonify([dict(q) for q in questions])
 
