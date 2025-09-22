@@ -25,14 +25,14 @@ async function display(page) {
 
     for (let i = 0; i < questions.length; i++) {
         let clon = temp.content.cloneNode(true)
-        quest = clon.querySelector('.question')
+        let quest = clon.querySelector('.question')
         quest.innerText = questions[i]['question']
-        quest.name = questions[i]['id']
+        quest.setAttribute("name", "q-" + questions[i]['id'])
         let getinput = clon.querySelectorAll('.ans')
         console.log(getinput)
           for (let j = 0; j < getinput.length; j++) {
             getinput[j].value = answers[j]['answer']
-            getinput[j].setAttribute("name", ) = answers[j]['id']
+            getinput[j].setAttribute("name", "ans-" + answers[j]['id'])
           }
         document.querySelector('form').prepend(clon)
     }
