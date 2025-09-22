@@ -40,28 +40,28 @@ def manhwa():
     return render_template("manhwa.html", name="Manhwa", page="manhwa")
 
 @app.route("/api/anime/questions", methods=["GET"])
-def apiQuestions():
+def apiAnimeQ():
     conn = get_db_connection()
     questions = conn.execute("SELECT * FROM themes;").fetchall()
     conn.close()
     return jsonify([dict(q) for q in questions])
 
 @app.route("/api/anime/answers", methods=["GET"])
-def apiQuestions():
+def apiAnimeA():
     conn = get_db_connection()
     questions = conn.execute("SELECT * FROM themes;").fetchall()
     conn.close()
     return jsonify([dict(q) for q in questions])
 
 @app.route("/api/manhwa/answers", methods=["GET"])
-def apiQuestions():
+def apiManhwaA():
     conn = get_db_connection()
     questions = conn.execute("SELECT * FROM themes;").fetchall()
     conn.close()
     return jsonify([dict(q) for q in questions])
 
 @app.route("/api/manhwa/questions", methods=["GET"])
-def apiQuestions():
+def apiManhwaQ():
     conn = get_db_connection()
     questions = conn.execute("SELECT * FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Anime';").fetchall()
     conn.close()

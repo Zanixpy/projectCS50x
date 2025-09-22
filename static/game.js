@@ -19,7 +19,7 @@ async function getAPI(url)
 }
 
 function display(page) {
-    const questions = getAPI("/api/" + page + "questions")
+    const questions = getAPI("/api/" + page + "/questions")
     const answers = getAPI("/api/" + page + "answers")
     let temp = document.querySelector('.struct')
     let questionlist = [
