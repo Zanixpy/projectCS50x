@@ -5,19 +5,19 @@
             <h1>{{theme}} Quiz</h1>
         </header>
         <form action="{{path}}" method="post">
-            <template class="struct">   
+            <template class="struct">
                 <h2 class="question"></h2>
                 <div class="mb-3">
-                    <input type="text" name="first" class="ans" disabled>
+                    <input type="text"  class="ans" disabled>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="second" class="ans" disabled>
+                    <input type="text"  class="ans" disabled>
                 </div>
                 <div class="mb-3">
-                    <input type="text"name="third" class="ans" disabled>
-                </div>                
+                    <input type="text" class="ans" disabled>
+                </div>
             </template>
             <button class="btn btn-primary" type="submit">Confirm</button>
         </form>
-        
+
 {% endblock %}

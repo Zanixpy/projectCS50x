@@ -20,15 +20,15 @@ async function getAPI(url)
 async function display(page) {
     const questions = await getAPI("/api/" + page + "/questions")
     const answers = await getAPI("/api/" + page + "/answers")
-    console.log(questions.length, answers.length)
+    console.log(questions[0], answers[0])
     let temp = document.querySelector('.struct')
 
     for (let i = 0; i < questions.length; i++) {
         let clon = temp.content.cloneNode(true)
-        clon.querySelector('.question').innerText = questionlist[i]
+        clon.querySelector('.question').innerText = questions[i]
         let getinput = clon.querySelectorAll('.ans')
-          for (let j = 0; j < listans.length; j++) {
-            getinput[j].value = listans[i][j]
+          for (let j = 0; j < answers.length; j++) {
+            getinput[j].value = answers[i][j]
           }
         document.querySelector('form').prepend(clon)
     }
