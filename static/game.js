@@ -7,13 +7,12 @@ async function getAPI(url)
             method: "GET"
         });
     if (!response.ok)
-        throw new Error(`Response status: ${response.status}`);
-    const result = await response.json();
-    console.log(result);
+        throw new Error(`Response status: ${response.status}`)
+    const result = await response.json()
     return (result)
 
   } catch (error){
-    console.error(error.message);
+    console.error(error.message)
     return
   }
 }
@@ -21,6 +20,7 @@ async function getAPI(url)
 function display(page) {
     const questions = getAPI("/api/" + page + "/questions")
     const answers = getAPI("/api/" + page + "/answers")
+    console.log(questions, answers)
     let temp = document.querySelector('.struct')
     let questionlist = [
         "Who's mc in Naruto ?",
