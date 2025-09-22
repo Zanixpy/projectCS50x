@@ -32,7 +32,7 @@ async function display(page) {
         console.log(getinput)
           for (let j = 0; j < getinput.length; j++) {
             getinput[j].value = answers[j]['answer']
-            getinput[j].name = answers[j]['id']
+            getinput[j].setAttribute("name", ) = answers[j]['id']
           }
         document.querySelector('form').prepend(clon)
     }
