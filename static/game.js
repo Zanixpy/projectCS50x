@@ -20,7 +20,7 @@ async function getAPI(url)
 async function display(page) {
     const questions = await getAPI("/api/" + page + "/questions")
     const answers = await getAPI("/api/" + page + "/answers")
-    console.log(questions, answers)
+    console.log(questions.length, answers.length)
     let temp = document.querySelector('.struct')
 
     for (let i = 0; i < questions.length; i++) {
