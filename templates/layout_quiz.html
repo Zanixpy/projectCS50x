@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 
+{% block style %}
+    <link rel="stylesheet" href="/static/styleQ.css">
+{% endblock %}
+
 {% block main %}
         <header>
             <h1>{{theme}} Quiz</h1>
@@ -7,15 +11,15 @@
         <form action="{{path}}" method="post">
             <template class="struct">
                 <h2 class="question"></h2>
-                <div class="mb-3">
-                    <input type="text"  class="ans" disabled>
-                </div>
-                <div class="mb-3">
-                    <input type="text"  class="ans" disabled>
-                </div>
-                <div class="mb-3">
-                    <input type="text" class="ans" disabled>
-                </div>
+                    <div>
+                        <input type="text"  class="ans" readonly>
+                    </div>
+                    <div>
+                        <input type="text"  class="ans" readonly>
+                    </div>
+                    <div>
+                        <input type="text"  class="ans"readonly >
+                    </div>
             </template>
             <button class="btn btn-primary" type="submit">Confirm</button>
         </form>

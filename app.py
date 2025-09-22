@@ -34,14 +34,14 @@ def home():
 @app.route("/anime", methods=["GET", "POST"])
 def anime():
     if request.method == "POST":
-        return render_template("anime.html", name="Anime", page="anime")
+        return render_template("anime.html", theme="Anime", page="anime")
 
-    return render_template("anime.html", name="Anime", page="anime")
+    return render_template("anime.html", theme="Anime", page="anime" )
 
 
 @app.route("/manhwa", methods=["GET", "POST"])
 def manhwa():
-    return render_template("manhwa.html", name="Manhwa", page="manhwa")
+    return render_template("manhwa.html", theme="Manhwa", page="manhwa")
 
 
 @app.route("/api/anime/questions", methods=["GET"])
@@ -72,7 +72,7 @@ def apiManhwaA():
 @app.route("/api/manhwa/questions", methods=["GET"])
 def apiManhwaQ():
     conn = get_db_connection()
-    questions = conn.execute("SELECT DISTINCT questions.question FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Manhwa';").fetchall()
+    questions = conn.execute("SELECT DISTINCT questions.id, questions.question FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Manhwa';").fetchall()
     conn.close()
     return jsonify([dict(q) for q in questions])
 

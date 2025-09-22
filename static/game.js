@@ -10,84 +10,75 @@ async function getAPI(url)
         throw new Error(`Response status: ${response.status}`)
     const result = await response.json()
     return result
-
   } catch (error){
     console.error(error.message)
     return
   }
 }
 
-async function display(page) {
+function findClass(tab, elem, name) 
+{
+    for (let i = 0; i < tab.length; i++) {
+        if (tab[i].classList.toggle(name) && tab[i] != elem)
+            tab[i].classList.remove('click') 
+    }
+}
+
+function eventInputs() 
+{
+    let getQ = document.querySelectorAll('.question')
+    for (let i = 0; i < getQ.length; i++) {
+        let getA = document.querySelectorAll('.inputs-' + getQ[i].getAttribute("name"))
+        getA.forEach(elem => {  
+                elem.addEventListener("click", (e) => {
+                    findClass(getA, elem, "click")
+                    e.currentTarget.classList.add('click')     
+                }) 
+        })
+    }             
+}
+
+function editTemplate(question, answers) 
+{
+    let clon = document.querySelector('.struct').content.cloneNode(true)
+
+    clon.querySelector('.question').innerText = question['question']
+    clon.querySelector('.question').setAttribute("name", question['id'])
+
+    let getinput = clon.querySelectorAll('.ans')
+    
+    for (let j = 0; j < getinput.length; j++) {
+        getinput[j].setAttribute("value", answers[j]['ans'])
+        getinput[j].setAttribute("name", "ans-" + answers[j]['id'])
+        getinput[j].classList.add(answers[j]['loc']) 
+    }
+
+    document.querySelector('button').before(clon)  
+}
+
+function createTemplates(dataQ, dataA) 
+{  
+    for (let i = 0; i < dataQ.length; i++) {
+        let ans = []
+        for (let k = 0; k < dataA.length; k++) {
+            if (dataQ[i]['id'] == dataA[k]['question_id'])
+                ans.push({'ans':dataA[k]['answer'], 'id':dataA[k]['ans_id'], 'loc':"inputs-" + dataQ[i]['id']})      
+        }
+        editTemplate(dataQ[i], ans)     
+    }
+}
+
+async function quiz(page) {
     const questions = await getAPI("/api/" + page + "/questions")
     const answers = await getAPI("/api/" + page + "/answers")
-    console.log(questions[0], answers[0])
-    let temp = document.querySelector('.struct')
-
-    for (let i = 0; i < questions.length; i++) {
-        let clon = temp.content.cloneNode(true)
-        let quest = clon.querySelector('.question')
-        quest.innerText = questions[i]['question']
-        quest.setAttribute("name", "q-" + questions[i]['id'])
-        let getinput = clon.querySelectorAll('.ans')
-        console.log(getinput)
-          for (let j = 0; j < getinput.length; j++) {
-            getinput[j].value = answers[j]['answer']
-            getinput[j].setAttribute("name", "ans-" + answers[j]['id'])
-          }
-        document.querySelector('form').prepend(clon)
-    }
+    createTemplates(questions,answers)
+    eventInputs()    
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     const page = document.body.dataset.page
     if (page == "anime")
-        display("anime")
+        quiz("anime")
     else if (page == "manhwa")
-        display("manhwa")
+        quiz("manhwa")
 })
-
-
-/*function Affichage(x) {
-    const temp= document.querySelector('.struct')
-    const clone= temp.content.cloneNode(true)
-    clone.querySelector('.question').innerText=x[window.val].question
-
-    clone.querySelector('.ans.first').innerText= x[window.val].reponse[0].ans
-    clone.querySelector('.ans.first').setAttribute("data-verifans",x[window.val].reponse[0].trueans)
-
-    clone.querySelector('.ans.second').innerText= x[window.val].reponse[1].ans
-    clone.querySelector('.ans.second').setAttribute("data-verifans",x[window.val].reponse[1].trueans)
-
-    clone.querySelector('.ans.third').innerText= x[window.val].reponse[2].ans
-    clone.querySelector('.ans.third').setAttribute("data-verifans",x[window.val].reponse[2].trueans)
-    document.querySelector('.mainAct').append(clone)
-}
-
-function System(y) {
-    document.querySelectorAll('.ans').forEach(element => {
-        element.addEventListener('click', e =>{
-            if (e.target.dataset.verifans==="true") {
-                document.querySelector('.number').textContent++
-                e.target.classList.add('winner')
-            }else{
-                e.target.classList.add('loser')
-            }
-            setTimeout(()=>{
-                document.querySelector('.quiz').remove()
-                window.val++
-
-                if (window.val < y.length) {
-                    Affichage(y)
-                    System(y)
-                }else{
-                    FinQuiz()
-                }
-            },300)
-        },{once:true})
-    })
-}
-
-function FinQuiz() {
-    const mainAct = document.querySelector('.mainAct')
-    mainAct.innerHTML = "<h2>Quiz terminé !</h2><p>Score : " + document.querySelector('.number').textContent + "</p>"
-}*/
