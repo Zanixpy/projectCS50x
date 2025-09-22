@@ -45,7 +45,7 @@ function display(page) {
 
 document.addEventListener("DOMContentLoaded", () => {
     const page = document.body.dataset.page
-    if (page == "anime" || page == "manhwa")
+    if (page == "anime")
         display("anime")
     else if (page == "manhwa")
         display("manhwa")
