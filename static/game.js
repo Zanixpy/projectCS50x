@@ -1,11 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const page = document.body.dataset.page
-    if (page != "quiz") 
-        display()
-})
+async function getAPI(url)
+{
+  try
+  {
+    const response = await fetch(url,
+        {
+            method: "GET"
+        });
+    if (!response.ok)
+        throw new Error(`Response status: ${response.status}`);
+    const result = await response.json();
+    console.log(result);
+    return (result)
 
+  } catch (error){
+    console.error(error.message);
+    return
+  }
+}
 
-function display() {
+function display(page) {
+    const questions = getAPI("/api/" + page + "questions")
+    const answers = getAPI("/api/" + page + "answers")
     let temp = document.querySelector('.struct')
     let questionlist = [
         "Who's mc in Naruto ?",
@@ -25,10 +40,16 @@ function display() {
             getinput[j].value = listans[i][j]
           }
         document.querySelector('form').prepend(clon)
-    }      
+    }
 }
-  
 
+document.addEventListener("DOMContentLoaded", () => {
+    const page = document.body.dataset.page
+    if (page == "anime" || page == "manhwa")
+        display("anime")
+    else if (page == "manhwa")
+        display("manhwa")
+})
 
 
 /*function Affichage(x) {

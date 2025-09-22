@@ -39,19 +39,34 @@ def anime():
 def manhwa():
     return render_template("manhwa.html", name="Manhwa", page="manhwa")
 
-@app.route("/api/questions", methods=["GET"])
+@app.route("/api/anime/questions", methods=["GET"])
 def apiQuestions():
     conn = get_db_connection()
     questions = conn.execute("SELECT * FROM themes;").fetchall()
     conn.close()
     return jsonify([dict(q) for q in questions])
 
-@app.route("/api/answers")
-def apiAnswers():
+@app.route("/api/anime/answers", methods=["GET"])
+def apiQuestions():
     conn = get_db_connection()
-    answers = conn.execute("SELECT * FROM themes;").fetchall()
+    questions = conn.execute("SELECT * FROM themes;").fetchall()
     conn.close()
-    return jsonify([dict(a) for a in answers])
+    return jsonify([dict(q) for q in questions])
+
+@app.route("/api/manhwa/answers", methods=["GET"])
+def apiQuestions():
+    conn = get_db_connection()
+    questions = conn.execute("SELECT * FROM themes;").fetchall()
+    conn.close()
+    return jsonify([dict(q) for q in questions])
+
+@app.route("/api/manhwa/questions", methods=["GET"])
+def apiQuestions():
+    conn = get_db_connection()
+    questions = conn.execute("SELECT * FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = "Anime";").fetchall()
+    conn.close()
+    return jsonify([dict(q) for q in questions])
+
 
 
 
