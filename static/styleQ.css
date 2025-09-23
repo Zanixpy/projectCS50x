@@ -28,7 +28,7 @@ header{
 }
 
 .content{
-    margin-top:100px;   
+    margin-top:100px;
 }
 
 
@@ -48,7 +48,7 @@ header{
     margin-bottom: 30px;
 
 }
-.ans:hover{
+.anshover{
     transition: "opacity" .4;
     cursor: pointer;
     opacity: 1;
@@ -68,7 +68,7 @@ header{
 }
 .loser{
     background-color: red;
-    opacity: 1;    
+    opacity: 1;
 }
 
 
