@@ -16,24 +16,17 @@ async function getAPI(url)
   }
 }
 
-function findClass(tab, elem, name)
+function handleElem(tab, elem, name)
 {
     for (let i = 0; i < tab.length; i++) {
+        elem.classList.add('click')
         if (tab[i].classList.toggle(name) && tab[i] != elem)
         {
             tab[i].classList.remove('click')
-            return 1
         }
-        return 0
 
 
     }
-}
-
-function  handleElem(nodes, e, event)
-{
-        findClass(nodes, e, event)
-        e.classList.add('click')
 }
 
 function eventInputs()
