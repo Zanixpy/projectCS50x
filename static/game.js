@@ -85,8 +85,9 @@ function createTemplates(dataQ, dataA)
 async function sendAnswers()
 {
     document.querySelector("form").addEventListener("submit", (e) => {
-        e.preventDefault()
         endEventInputs()
+        e.preventDefault()
+        console.log("Yeah")
         let getA = document.querySelectorAll(".click")
     })
 }
