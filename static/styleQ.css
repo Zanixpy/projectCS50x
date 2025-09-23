@@ -48,7 +48,7 @@ header{
     margin-bottom: 30px;
 
 }
-.anshover{
+.ans:hover{
     transition: "opacity" .4;
     cursor: pointer;
     opacity: 1;
