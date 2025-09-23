@@ -44,7 +44,9 @@ function endEventInputs()
     for (let i = 0; i < getQ.length; i++) {
         let getA = document.querySelectorAll('.inputs-' + getQ[i].getAttribute("name"))
         getA.forEach(elem => {
-                elem.removeEventListener("click", ())
+                elem.removeEventListener("click", (e) => {
+                    findClass(getA, elem, "click")
+                    e.currentTarget.classList.add('click'))
         })
     }
 }
