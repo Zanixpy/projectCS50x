@@ -20,15 +20,20 @@ function findClass(tab, elem, name)
 {
     for (let i = 0; i < tab.length; i++) {
         if (tab[i].classList.toggle(name) && tab[i] != elem)
+        {
             tab[i].classList.remove('click')
+            return 1
+        }
+        return 0
+
+
     }
 }
 
 function  handleElem(nodes, e, event)
 {
-    console.log(e)
-    findClass(nodes, e, event)
-    e.classList.add('click')
+        findClass(nodes, e, event)
+        e.classList.add('click')
 }
 
 function eventInputs()
