@@ -35,8 +35,7 @@ def home():
 def anime():
     conn = get_db_connection()
     themes = conn.execute("SELECT * FROM themes WHERE name='Anime';").fetchall()
-    themes = [list(row) for row in themes]
-    print(themes)
+    themes = [dict(row) for row in themes]
     conn.close()
 
     return render_template("anime.html", theme="Anime", page="anime", path=themes[0]['path'] )
@@ -48,7 +47,7 @@ def manhwa():
     themes = conn.execute("SELECT * FROM themes WHERE name='Manhwa';").fetchall()
     themes = [dict(row) for row in themes]
     conn.close()
-    return render_template("manhwa.html", theme="Manhwa", page="manhwa", path=themes[1]['path'])
+    return render_template("manhwa.html", theme="Manhwa", page="manhwa", path=themes[0]['path'])
 
 
 @app.route("/api/anime/questions", methods=["GET"])
