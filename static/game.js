@@ -26,8 +26,9 @@ function findClass(tab, elem, name)
 
 function  handleElem(nodes, e, event)
 {
-      findClass(nodes, e, event)
-      e.classList.add('click')
+    console.log(e)
+    findClass(nodes, e, event)
+    e.classList.add('click')
 }
 
 function eventInputs()
