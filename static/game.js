@@ -24,16 +24,19 @@ function findClass(tab, elem, name)
     }
 }
 
+function  handleElem(nodes, e, event)
+{
+      findClass(nodes, e, event)
+      e.classList.add('click')
+}
+
 function eventInputs()
 {
     let getQ = document.querySelectorAll('.question')
     for (let i = 0; i < getQ.length; i++) {
         let getA = document.querySelectorAll('.inputs-' + getQ[i].getAttribute("name"))
         getA.forEach(elem => {
-                elem.addEventListener("click", (e) => {
-                    findClass(getA, elem, "click")
-                    e.currentTarget.classList.add('click')
-                })
+                elem.addEventListener("click", handleElem(getA, elem, "click"))
         })
     }
 }
