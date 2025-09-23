@@ -55,6 +55,10 @@ header{
     box-shadow: 1px 1px 1px 1px lightcyan;
 }
 
+.noHover{
+    pointer-events:none
+}
+
 .click{
     transition: "opacity" .4;
     opacity: 1;
