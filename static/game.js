@@ -46,11 +46,7 @@ function endEventInputs()
     for (let i = 0; i < getQ.length; i++) {
         let getA = document.querySelectorAll('.inputs-' + getQ[i].getAttribute("name"))
         getA.forEach(elem => {
-                console.log(elem)
-                elem.removeEventListener("click", (e) => {
-                    console.log(e.currentTarget)
-                    e.currentTarget.classList.add('noHover')
-                })
+                elem.removeEventListener("click", handleElem(getA, elem, "click"))
         })
     }
 }
@@ -88,8 +84,8 @@ function createTemplates(dataQ, dataA)
 async function sendAnswers()
 {
     document.querySelector("form").addEventListener("submit", (e) => {
-        endEventInputs()
         e.preventDefault()
+        endEventInputs()
         console.log("Yeah")
         let getA = document.querySelectorAll(".click")
     })
