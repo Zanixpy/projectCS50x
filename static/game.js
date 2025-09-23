@@ -45,6 +45,7 @@ function endEventInputs()
         let getA = document.querySelectorAll('.inputs-' + getQ[i].getAttribute("name"))
         getA.forEach(elem => {
                 elem.removeEventListener("click", (e) => {
+                    console.log(e.currentTarget)
                     e.currentTarget.classList.add('noHover')
                 })
         })
