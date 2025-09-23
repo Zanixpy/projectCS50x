@@ -73,7 +73,6 @@ async function sendAnswers()
     document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault()
         let getA = document.querySelectorAll(".click")
-        console.log(getA)
     })
 }
 
