@@ -81,14 +81,10 @@ function createTemplates(dataQ, dataA)
     }
 }
 
-async function sendAnswers()
+function sendAnswers()
 {
-    document.querySelector("form").addEventListener("submit", (e) => {
-        e.preventDefault()
         endEventInputs()
-        console.log("Yeah")
         let getA = document.querySelectorAll(".click")
-    })
 }
 
 async function quiz(page) {
@@ -96,7 +92,12 @@ async function quiz(page) {
     const answers = await getAPI("/api/" + page + "/answers")
     createTemplates(questions,answers)
     eventInputs()
-    sendAnswers()
+    console.lo
+    document.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault()
+        sendAnswers()
+    })
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
