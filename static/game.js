@@ -16,29 +16,29 @@ async function getAPI(url)
   }
 }
 
-function findClass(tab, elem, name) 
+function findClass(tab, elem, name)
 {
     for (let i = 0; i < tab.length; i++) {
         if (tab[i].classList.toggle(name) && tab[i] != elem)
-            tab[i].classList.remove('click') 
+            tab[i].classList.remove('click')
     }
 }
 
-function eventInputs() 
+function eventInputs()
 {
     let getQ = document.querySelectorAll('.question')
     for (let i = 0; i < getQ.length; i++) {
         let getA = document.querySelectorAll('.inputs-' + getQ[i].getAttribute("name"))
-        getA.forEach(elem => {  
+        getA.forEach(elem => {
                 elem.addEventListener("click", (e) => {
                     findClass(getA, elem, "click")
-                    e.currentTarget.classList.add('click')     
-                }) 
+                    e.currentTarget.classList.add('click')
+                })
         })
-    }             
+    }
 }
 
-function editTemplate(question, answers) 
+function editTemplate(question, answers)
 {
     let clon = document.querySelector('.struct').content.cloneNode(true)
 
@@ -46,33 +46,35 @@ function editTemplate(question, answers)
     clon.querySelector('.question').setAttribute("name", question['id'])
 
     let getinput = clon.querySelectorAll('.ans')
-    
+
     for (let j = 0; j < getinput.length; j++) {
         getinput[j].setAttribute("value", answers[j]['ans'])
         getinput[j].setAttribute("name", "ans-" + answers[j]['id'])
-        getinput[j].classList.add(answers[j]['loc']) 
+        getinput[j].classList.add(answers[j]['loc'])
     }
 
-    document.querySelector('button').before(clon)  
+    document.querySelector('button').before(clon)
 }
 
-function createTemplates(dataQ, dataA) 
-{  
+function createTemplates(dataQ, dataA)
+{
     for (let i = 0; i < dataQ.length; i++) {
         let ans = []
         for (let k = 0; k < dataA.length; k++) {
             if (dataQ[i]['id'] == dataA[k]['question_id'])
-                ans.push({'ans':dataA[k]['answer'], 'id':dataA[k]['ans_id'], 'loc':"inputs-" + dataQ[i]['id']})      
+                ans.push({'ans':dataA[k]['answer'], 'id':dataA[k]['ans_id'], 'loc':"inputs-" + dataQ[i]['id']})
         }
-        editTemplate(dataQ[i], ans)     
+        editTemplate(dataQ[i], ans)
     }
 }
+
+
 
 async function quiz(page) {
     const questions = await getAPI("/api/" + page + "/questions")
     const answers = await getAPI("/api/" + page + "/answers")
     createTemplates(questions,answers)
-    eventInputs()    
+    eventInputs()
 }
 
 document.addEventListener("DOMContentLoaded", () => {
