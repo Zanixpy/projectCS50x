@@ -27,21 +27,28 @@ def home():
     conn = get_db_connection()
     themes = conn.execute("SELECT * FROM themes;").fetchall()
     themes = [dict(row) for row in themes]
+    print(themes)
     conn.close()
     return render_template("quiz.html", page="quiz", themes=themes)
 
 
 @app.route("/anime", methods=["GET", "POST"])
 def anime():
-    if request.method == "POST":
-        return render_template("anime.html", theme="Anime", page="anime")
+    conn = get_db_connection()
+    themes = conn.execute("SELECT * FROM themes;").fetchall()
+    themes = [dict(row) for row in themes]
+    conn.close()
 
-    return render_template("anime.html", theme="Anime", page="anime" )
+    return render_template("anime.html", theme="Anime", page="anime", path=themes[0]['path'] )
 
 
 @app.route("/manhwa", methods=["GET", "POST"])
 def manhwa():
-    return render_template("manhwa.html", theme="Manhwa", page="manhwa")
+    conn = get_db_connection()
+    themes = conn.execute("SELECT * FROM themes;").fetchall()
+    themes = [dict(row) for row in themes]
+    conn.close()
+    return render_template("manhwa.html", theme="Manhwa", page="manhwa", path=themes['path'])
 
 
 @app.route("/api/anime/questions", methods=["GET"])
