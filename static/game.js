@@ -38,6 +38,17 @@ function eventInputs()
     }
 }
 
+function endEventInputs()
+{
+    let getQ = document.querySelectorAll('.question')
+    for (let i = 0; i < getQ.length; i++) {
+        let getA = document.querySelectorAll('.inputs-' + getQ[i].getAttribute("name"))
+        getA.forEach(elem => {
+                elem.removeEventListener()
+        })
+    }
+}
+
 function editTemplate(question, answers)
 {
     let clon = document.querySelector('.struct').content.cloneNode(true)
@@ -72,6 +83,7 @@ async function sendAnswers()
 {
     document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault()
+        endEventInputs()
         let getA = document.querySelectorAll(".click")
     })
 }
