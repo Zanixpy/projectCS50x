@@ -19,13 +19,30 @@ async function getAPI(url)
 function handleElem(tab, elem, name)
 {
     for (let i = 0; i < tab.length; i++) {
-        elem.classList.add('click')
         if (tab[i].classList.toggle(name) && tab[i] != elem)
-        {
-            tab[i].classList.remove('click')
-        }
+            tab[i].classList.remove(name)
+        elem.classList.add(name)
+    }
+}
 
+function getClickHandler(getA, elem) {
+    return function() {
+        handleElem(getA, elem, "click");
+        console.log(elem);
+    };
+}
 
+function endEventInputs()
+{
+    let getQ = document.querySelectorAll('.question')
+    for (let i = 0; i < getQ.length; i++) {
+        let getA = document.querySelectorAll('.inputs-' + getQ[i].getAttribute("name"))
+        getA.forEach(elem => {
+            if (elem._clickHandler) {
+                elem.removeEventListener("click", elem._clickHandler);
+                delete elem._clickHandler;
+            }
+        })
     }
 }
 
@@ -35,18 +52,9 @@ function eventInputs()
     for (let i = 0; i < getQ.length; i++) {
         let getA = document.querySelectorAll('.inputs-' + getQ[i].getAttribute("name"))
         getA.forEach(elem => {
-                elem.addEventListener("click", handleElem(getA, elem, "click"))
-        })
-    }
-}
-
-function endEventInputs()
-{
-    let getQ = document.querySelectorAll('.question')
-    for (let i = 0; i < getQ.length; i++) {
-        let getA = document.querySelectorAll('.inputs-' + getQ[i].getAttribute("name"))
-        getA.forEach(elem => {
-                elem.removeEventListener("click", handleElem(getA, elem, "click"))
+            const handler = getClickHandler(getA, elem);
+            elem._clickHandler = handler;
+            elem.addEventListener("click", handler);
         })
     }
 }
@@ -83,20 +91,21 @@ function createTemplates(dataQ, dataA)
 
 function sendAnswers()
 {
+    document.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault()
         endEventInputs()
-        let getA = document.querySelectorAll(".click")
+    })
+    let getA = document.querySelectorAll(".click")
 }
 
 async function quiz(page) {
     const questions = await getAPI("/api/" + page + "/questions")
     const answers = await getAPI("/api/" + page + "/answers")
+    console.log("Restart")
     createTemplates(questions,answers)
     eventInputs()
-    console.lo
-    document.querySelector("form").addEventListener("submit", (e) => {
-        e.preventDefault()
-        sendAnswers()
-    })
+    sendAnswers()
+ 
 
 }
 
