@@ -112,6 +112,7 @@ function disabledEvery(tab)
 {
     tab.forEach(elem => {
         elem.disabled = true
+        elem.classList.add("noHover")
     })
 }
 
