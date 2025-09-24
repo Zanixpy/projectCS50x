@@ -2,6 +2,7 @@ async function getAPI(url, method=NULL, data=NULL)
 {
   try
   {
+    if
     const response = await fetch(url,
         {
             method: "GET",
