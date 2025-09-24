@@ -124,6 +124,7 @@ function sendAnswers()
         disabledEvery(document.querySelectorAll(".ans"))
         document.querySelector(".end").hidden = false
         let getA = document.querySelectorAll(".click")
+        console.log(getA)
     })
 
 }
