@@ -127,10 +127,11 @@ function sendAnswers()
         let getA = document.querySelectorAll(".click")
         let data = []
         getA.forEach(elem => {
-            let id = elem.name
-            //data.push({"id":id,})
-            console.log(parseInt(id.substr(4)), elem.value)
+            let id = parseInt(elem.name.substr(4))
+            data.push({"id":id, "ans":elem.value})
+
         })
+        console.log(data)
     })
 
 }
