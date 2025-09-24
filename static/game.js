@@ -4,7 +4,7 @@ async function getAPI(url)
   {
     const response = await fetch(url,
         {
-            method: "GET",
+            "method": "GET",
         });
     if (!response.ok)
         throw new Error(`Response status: ${response.status}`)
@@ -16,14 +16,15 @@ async function getAPI(url)
   }
 }
 
-async function postAPI(url)
+async function postAPI(url, data)
 {
   try
   {
     const response = await fetch(url,
         {
-            method: "POST",
-            body:
+            "method": "POST",
+            "headers": {"Content-Type": "application/json"},
+            "body": JSON.stringify(data),
         });
     if (!response.ok)
         throw new Error(`Response status: ${response.status}`)
