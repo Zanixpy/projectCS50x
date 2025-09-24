@@ -37,6 +37,8 @@ def anime():
     themes = conn.execute("SELECT * FROM themes WHERE name='Anime';").fetchall()
     themes = [dict(row) for row in themes]
     conn.close()
+    #if request.method == "POST":
+
 
     return render_template("anime.html", theme="Anime", page="anime", path=themes[0]['path'] )
 

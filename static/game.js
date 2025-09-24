@@ -93,14 +93,15 @@ function sendAnswers()
     document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault()
         endEventInputs()
+        let getA = document.querySelectorAll(".click")
+        console.log(getA)
     })
-    let getA = document.querySelectorAll(".click")
+
 }
 
 async function quiz(page) {
     const questions = await getAPI("/api/" + page + "/questions")
     const answers = await getAPI("/api/" + page + "/answers")
-    console.log("Restart")
     createTemplates(questions,answers)
     eventInputs()
     sendAnswers()
