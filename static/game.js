@@ -128,7 +128,8 @@ function sendAnswers()
         let data = []
         getA.forEach(elem => {
             let id = elem.name
-            console.log(id.substr(4), elem.value)
+            //data.push({"id":id,})
+            console.log(parseInt(id.substr(4)), elem.value)
         })
     })
 
