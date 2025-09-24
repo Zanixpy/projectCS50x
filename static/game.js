@@ -1,4 +1,22 @@
-async function getAPI(url)
+async function getAPI(url, method=NULL, data=NULL)
+{
+  try
+  {
+    const response = await fetch(url,
+        {
+            method: "GET",
+        });
+    if (!response.ok)
+        throw new Error(`Response status: ${response.status}`)
+    const result = await response.json()
+    return result
+  } catch (error){
+    console.error(error.message)
+    return
+  }
+}
+
+async function postAPI(url)
 {
   try
   {
@@ -102,8 +120,10 @@ function sendAnswers()
         endEventInputs()
         document.querySelector(".btn").disabled = true
         disabledEvery(document.querySelectorAll(".ans"))
+        document.querySelector(".end").hidden = false
         let getA = document.querySelectorAll(".click")
-        
+
+
     })
 
 }
