@@ -88,7 +88,12 @@ function createTemplates(dataQ, dataA)
     }
 }
 
-function 
+function disabledEvery(tab)
+{
+    tab.forEach(elem => {
+        elem.disabled = true
+    })
+}
 
 function sendAnswers()
 {
@@ -96,9 +101,10 @@ function sendAnswers()
         e.preventDefault()
         endEventInputs()
         document.querySelector(".btn").disabled = true
+        disabledEvery(document.querySelectorAll(".ans"))
         let getA = document.querySelectorAll(".click")
         console.log(getA)
-    }, {passive:false})
+    })
 
 }
 
