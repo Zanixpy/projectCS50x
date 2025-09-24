@@ -125,6 +125,10 @@ function sendAnswers()
         disabledEvery(document.querySelectorAll(".ans"))
         document.querySelector(".end").hidden = false
         let getA = document.querySelectorAll(".click")
+        getA.forEach(elem => {
+            let id = elem.name
+            console.log(id[4;])
+        })
         console.log(getA)
     })
 
