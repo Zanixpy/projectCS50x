@@ -127,7 +127,7 @@ function sendAnswers()
         let getA = document.querySelectorAll(".click")
         getA.forEach(elem => {
             let id = elem.name
-            console.log(id[4;])
+            console.log(id.substr())
         })
         console.log(getA)
     })
