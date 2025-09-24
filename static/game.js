@@ -23,6 +23,7 @@ async function postAPI(url)
     const response = await fetch(url,
         {
             method: "POST",
+            body:
         });
     if (!response.ok)
         throw new Error(`Response status: ${response.status}`)
