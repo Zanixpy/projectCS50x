@@ -27,9 +27,8 @@ function handleElem(tab, elem, name)
 
 function getClickHandler(getA, elem) {
     return function() {
-        handleElem(getA, elem, "click");
-        console.log(elem);
-    };
+        handleElem(getA, elem, "click")
+    }
 }
 
 function endEventInputs()
@@ -105,7 +104,7 @@ async function quiz(page) {
     createTemplates(questions,answers)
     eventInputs()
     sendAnswers()
- 
+
 
 }
 
