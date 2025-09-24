@@ -103,7 +103,7 @@ function sendAnswers()
         document.querySelector(".btn").disabled = true
         disabledEvery(document.querySelectorAll(".ans"))
         let getA = document.querySelectorAll(".click")
-        console.log(getA)
+        
     })
 
 }
