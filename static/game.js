@@ -93,9 +93,11 @@ function sendAnswers()
     document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault()
         endEventInputs()
+        document.querySelector(".btn").disabled = true
+        console.log(document.querySelector(".btn"))
         let getA = document.querySelectorAll(".click")
         console.log(getA)
-    }, {once:true})
+    }, {passive:false})
 
 }
 
