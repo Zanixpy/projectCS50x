@@ -95,7 +95,7 @@ function sendAnswers()
         endEventInputs()
         let getA = document.querySelectorAll(".click")
         console.log(getA)
-    })
+    }, {once:true})
 
 }
 
