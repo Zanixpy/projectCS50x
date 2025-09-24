@@ -130,7 +130,6 @@ function sendAnswers()
             let id = elem.name
             console.log(id.substr(4), elem.value)
         })
-        console.log(getA)
     })
 
 }
