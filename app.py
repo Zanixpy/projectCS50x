@@ -35,14 +35,10 @@ def home():
 def anime():
     conn = get_db_connection()
     themes = conn.execute("SELECT * FROM themes WHERE name='Anime';").fetchall()
+    corrections = conn.execute("SELECT DISTINCT questions.id AS q_id, answers.id AS ans_id ,answers.answer FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Anime' AND answers.is_correct = 1;").fetchall()
     themes = [dict(row) for row in themes]
+    corrections = [dict(row) for row in corrections]
     conn.close()
-    if request.method == "POST":
-        test = request.get_json(silent=true)
-        print(test)
-        return jsonify({"try":15})
-
-
     return render_template("anime.html", theme="Anime", page="anime", path=themes[0]['path'] )
 
 
@@ -50,15 +46,10 @@ def anime():
 def manhwa():
     conn = get_db_connection()
     themes = conn.execute("SELECT * FROM themes WHERE name='Manhwa';").fetchall()
+    corrections = conn.execute("SELECT DISTINCT questions.id AS q_id, answers.id AS ans_id ,answers.answer FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Manhwa' AND answers.is_correct = 1;").fetchall()
     themes = [dict(row) for row in themes]
+    corrections = [dict(row) for row in corrections]
     conn.close()
-    if request.method == "POST":
-        test = request.get_json(silent=true)
-        if test:
-            print(test)
-        else:
-            print("Failed")
-        return jsonify({"try":15})
     return render_template("manhwa.html", theme="Manhwa", page="manhwa", path=themes[0]['path'])
 
 
@@ -93,6 +84,57 @@ def apiManhwaQ():
     questions = conn.execute("SELECT DISTINCT questions.id, questions.question FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Manhwa';").fetchall()
     conn.close()
     return jsonify([dict(q) for q in questions])
+
+@app.route("/api/anime/corrections", methods=["GET"])
+def apiAnimeC():
+    if request.method == "POST":
+        data = request.get_json(silent=True)
+        print("In AnimeC")
+        conn = get_db_connection()
+        corrections = conn.execute("SELECT DISTINCT questions.id AS q_id, answers.id AS ans_id ,answers.answer FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Anime' AND answers.is_correct = 1;").fetchall()
+        corrections = [dict(row) for row in corrections]
+        conn.close()
+        if data:
+            for i in range(len(corrections)):
+                if corrections[i]["q_id"] != data[i]["q_id"] or corrections[i]["quest"] != data[i]["quest"]:
+                    return redirect("error.html")
+                if corrections[i]["ans_id"] == data[i]["ans_id"]:
+                    if corrections[i]["answer"] != data[i]["answer"]:
+                        return redirect("error.html")
+                print("Un point gagner")
+                data[i]["is_correct"] = 1
+                print(data)
+        else:
+            return render_template("error.html", message="No data received")
+        print(data)
+        return jsonify(data)
+    return None
+
+@app.route("/api/manhwa/corrections", methods=["GET", "POST"])
+def apiManhwaC():
+    if request.method == "POST":
+        data = request.get_json(silent=True)
+        conn = get_db_connection()
+        print("In ManwhaC")
+        corrections = conn.execute("SELECT DISTINCT questions.id AS q_id, answers.id AS ans_id ,answers.answer FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Manhwa' AND answers.is_correct = 1;").fetchall()
+        corrections = [dict(row) for row in corrections]
+        conn.close()
+        if data:
+            for i in range(len(corrections)):
+                if corrections[i]["q_id"] != data[i]["q_id"] or corrections[i]["quest"] != data[i]["quest"]:
+                    return render_template("error.html", message="No data received")
+                if corrections[i]["ans_id"] == data[i]["ans_id"]:
+                    if corrections[i]["answer"] != data[i]["answer"]:
+                        return render_template("error.html", message="Something is wrong")
+                print("Un point gagner")
+                data[i]["is_correct"] = 1
+                print(data)
+        else:
+            return render_template("error.html", message="No data received")
+        print(data)
+        return jsonify(data)
+    return None
+    
 
 
 

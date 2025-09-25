@@ -4,7 +4,7 @@ async function getAPI(url)
   {
     const response = await fetch(url,
         {
-            "method": "GET",
+            method: "GET",
         });
     if (!response.ok)
         throw new Error(`Response status: ${response.status}`)
@@ -32,7 +32,6 @@ async function postAPI(url, data)
     const result = await response.json()
     return result
   } catch (error){
-    console.log("Non")
     console.log(error.message)
     return
   }
@@ -86,6 +85,9 @@ function editTemplate(question, answers)
 
     clon.querySelector('.question').innerText = question['question']
     clon.querySelector('.question').setAttribute("name", question['id'])
+    clon.querySelector('.question').classList.add("q-" + question['id'])
+
+
 
     let getinput = clon.querySelectorAll('.ans')
 
@@ -130,9 +132,12 @@ async function sendAnswers()
 
     getA.forEach(elem => {
         let id = parseInt(elem.name.substr(4))
-        data.push({"id":id, "ans":elem.value})
+        let ques_id = elem.classList[1].substring(7)
+        let quest = document.querySelector(".q-"+ ques_id).innerHTML
+        console.log(quest)
+        data.push({"q_id":ques_id, "quest":quest, "ans_id":id, "ans":elem.value, "is_correct":0})
     })
-    let result = await postAPI("/" + page, data)
+    let result = await postAPI("/api/" + page + "/corrections", data)
     console.log(result)
 
 }
@@ -145,7 +150,6 @@ async function quiz(page) {
     eventInputs()
     document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault()
-
         sendAnswers()
     })
 
