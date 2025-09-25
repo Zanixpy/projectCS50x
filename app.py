@@ -37,7 +37,10 @@ def anime():
     themes = conn.execute("SELECT * FROM themes WHERE name='Anime';").fetchall()
     themes = [dict(row) for row in themes]
     conn.close()
-    #if request.method == "POST":
+    if request.method == "POST":
+        test = request.get_json(silent=true)
+        print(test)
+        return jsonify({"try":15})
 
 
     return render_template("anime.html", theme="Anime", page="anime", path=themes[0]['path'] )
@@ -49,6 +52,13 @@ def manhwa():
     themes = conn.execute("SELECT * FROM themes WHERE name='Manhwa';").fetchall()
     themes = [dict(row) for row in themes]
     conn.close()
+    if request.method == "POST":
+        test = request.get_json(silent=true)
+        if test:
+            print(test)
+        else:
+            print("Failed")
+        return jsonify({"try":15})
     return render_template("manhwa.html", theme="Manhwa", page="manhwa", path=themes[0]['path'])
 
 

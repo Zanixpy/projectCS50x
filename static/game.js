@@ -20,18 +20,20 @@ async function postAPI(url, data)
 {
   try
   {
+    const body = JSON.stringify(data);
     const response = await fetch(url,
         {
-            "method": "POST",
-            "headers": {"Content-Type": "application/json"},
-            "body": JSON.stringify(data),
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: body,
         });
     if (!response.ok)
         throw new Error(`Response status: ${response.status}`)
     const result = await response.json()
     return result
   } catch (error){
-    console.error(error.message)
+    console.log("Non")
+    console.log(error.message)
     return
   }
 }
@@ -93,7 +95,7 @@ function editTemplate(question, answers)
         getinput[j].classList.add(answers[j]['loc'])
     }
 
-    document.querySelector('button').before(clon)
+    document.querySelector('.sub').before(clon)
 }
 
 function createTemplates(dataQ, dataA)
@@ -116,23 +118,22 @@ function disabledEvery(tab)
     })
 }
 
-function sendAnswers()
+async function sendAnswers()
 {
-    document.querySelector("form").addEventListener("submit", (e) => {
-        e.preventDefault()
-        endEventInputs()
-        document.querySelector(".btn").disabled = true
-        disabledEvery(document.querySelectorAll(".ans"))
-        document.querySelector(".end").hidden = false
-        let getA = document.querySelectorAll(".click")
-        let data = []
-        getA.forEach(elem => {
-            let id = parseInt(elem.name.substr(4))
-            data.push({"id":id, "ans":elem.value})
+    endEventInputs()
+    let data = []
+    const page = document.body.dataset.page
+    document.querySelector(".sub").disabled = true
+    disabledEvery(document.querySelectorAll(".ans"))
+    document.querySelector(".end").hidden = false
+    let getA = document.querySelectorAll(".click")
 
-        })
-        console.log(data)
+    getA.forEach(elem => {
+        let id = parseInt(elem.name.substr(4))
+        data.push({"id":id, "ans":elem.value})
     })
+    let result = await postAPI("/" + page, data)
+    console.log(result)
 
 }
 
@@ -142,7 +143,11 @@ async function quiz(page) {
     const answers = await getAPI("/api/" + page + "/answers")
     createTemplates(questions,answers)
     eventInputs()
-    sendAnswers()
+    document.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault()
+
+        sendAnswers()
+    })
 
 
 }
