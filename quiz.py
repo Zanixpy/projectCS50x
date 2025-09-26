@@ -12,7 +12,7 @@ def init_db(db_name="quiz.db", schema_file="schema.sql"):
         with open(schema_path, "r", encoding="utf-8") as f:
             conn.executescript(f.read())
 
-    print(f"✅ Base '{db_name}' créée à partir de '{schema_file}' (foreign_keys = ON pour la création).")
+    print(f"Base '{db_name}' créée à partir de '{schema_file}' (foreign_keys = ON pour la création).")
 
 if __name__ == "__main__":
     init_db("quiz.db", "schema.sql")
