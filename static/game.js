@@ -129,7 +129,7 @@ function checkAns(data)
         if (ans['is_correct'] == 1)
         {
             num += 1
-            score.value = num
+            score.innerText = num
             link.classList.add('winner')
         }
         else
