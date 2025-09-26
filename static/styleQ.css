@@ -25,13 +25,12 @@ header{
     top: 0;
     right: 0;
     margin: 10px;
+    font-size: 30px
 }
 
 .content{
     margin-top:100px;
 }
-
-
 
 .question {
     margin-bottom: 30px;
