@@ -120,6 +120,23 @@ function disabledEvery(tab)
     })
 }
 
+function checkAns(data)
+{
+    let score = document.querySelector(".number")
+    let num = 0
+    data.forEach(ans => {
+        let link = document.querySelector("input[name=ans-" + ans['ans_id'] + "]")
+        if (ans['is_correct'] == 1)
+        {
+            num += 1
+            score.value = num
+            link.classList.add('winner')
+        }
+        else
+            link.classList.add('loser')
+    })
+}
+
 async function sendAnswers()
 {
     endEventInputs()
@@ -129,18 +146,17 @@ async function sendAnswers()
     disabledEvery(document.querySelectorAll(".ans"))
     document.querySelector(".end").hidden = false
     let getA = document.querySelectorAll(".click")
-
     getA.forEach(elem => {
         let id = parseInt(elem.name.substr(4))
         let ques_id = elem.classList[1].substring(7)
         let quest = document.querySelector(".q-"+ ques_id).innerHTML
-        console.log(quest)
-        data.push({"q_id":ques_id, "quest":quest, "ans_id":id, "ans":elem.value, "is_correct":0})
+        data.push({"q_id":parseInt(ques_id), "quest":quest, "ans_id":id, "answer":elem.value, "is_correct":0})
     })
     let result = await postAPI("/api/" + page + "/corrections", data)
-    console.log(result)
+    checkAns(result)
 
 }
+
 
 
 async function quiz(page) {

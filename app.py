@@ -52,7 +52,6 @@ def manhwa():
     conn.close()
     return render_template("manhwa.html", theme="Manhwa", page="manhwa", path=themes[0]['path'])
 
-
 @app.route("/api/anime/questions", methods=["GET"])
 def apiAnimeQ():
     conn = get_db_connection()
@@ -85,56 +84,53 @@ def apiManhwaQ():
     conn.close()
     return jsonify([dict(q) for q in questions])
 
-@app.route("/api/anime/corrections", methods=["GET"])
+@app.route("/api/anime/corrections", methods=["GET","POST"])
 def apiAnimeC():
     if request.method == "POST":
         data = request.get_json(silent=True)
-        print("In AnimeC")
         conn = get_db_connection()
-        corrections = conn.execute("SELECT DISTINCT questions.id AS q_id, answers.id AS ans_id ,answers.answer FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Anime' AND answers.is_correct = 1;").fetchall()
+        corrections = conn.execute("SELECT DISTINCT questions.id AS q_id, questions.question AS quest, answers.id AS ans_id ,answers.answer FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Anime' AND answers.is_correct = 1;").fetchall()
         corrections = [dict(row) for row in corrections]
         conn.close()
         if data:
+            if len(corrections) != len(data):
+                return jsonify({'error':"Mismatched informations"})
             for i in range(len(corrections)):
                 if corrections[i]["q_id"] != data[i]["q_id"] or corrections[i]["quest"] != data[i]["quest"]:
-                    return redirect("error.html")
+                    return jsonify({'error':"Mismatched informations"})
                 if corrections[i]["ans_id"] == data[i]["ans_id"]:
                     if corrections[i]["answer"] != data[i]["answer"]:
-                        return redirect("error.html")
-                print("Un point gagner")
-                data[i]["is_correct"] = 1
-                print(data)
+                        return jsonify({'error':"Mismatched informations"})
+                    else:
+                        data[i]["is_correct"] = 1
         else:
-            return render_template("error.html", message="No data received")
-        print(data)
-        return jsonify(data)
-    return None
+            return jsonify({'error':"No data received"})
+    return jsonify(data)
 
 @app.route("/api/manhwa/corrections", methods=["GET", "POST"])
 def apiManhwaC():
     if request.method == "POST":
         data = request.get_json(silent=True)
         conn = get_db_connection()
-        print("In ManwhaC")
-        corrections = conn.execute("SELECT DISTINCT questions.id AS q_id, answers.id AS ans_id ,answers.answer FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Manhwa' AND answers.is_correct = 1;").fetchall()
+        corrections = conn.execute("SELECT DISTINCT questions.id AS q_id, questions.question AS quest, answers.id AS ans_id ,answers.answer FROM themes, answers, questions WHERE themes.id = questions.theme_id AND questions.id = answers.question_id AND themes.name = 'Manhwa' AND answers.is_correct = 1;").fetchall()
         corrections = [dict(row) for row in corrections]
         conn.close()
         if data:
+            if len(corrections) != len(data):
+                return jsonify({'error':"Mismatched informations"})
             for i in range(len(corrections)):
                 if corrections[i]["q_id"] != data[i]["q_id"] or corrections[i]["quest"] != data[i]["quest"]:
-                    return render_template("error.html", message="No data received")
+                    return jsonify({'error':"Mismatched informations"})
                 if corrections[i]["ans_id"] == data[i]["ans_id"]:
                     if corrections[i]["answer"] != data[i]["answer"]:
-                        return render_template("error.html", message="Something is wrong")
-                print("Un point gagner")
-                data[i]["is_correct"] = 1
-                print(data)
+                        return jsonify({'error':"Mismatched informations"})
+                    else:
+                        data[i]["is_correct"] = 1
         else:
-            return render_template("error.html", message="No data received")
-        print(data)
-        return jsonify(data)
-    return None
-    
+            return jsonify({'error':"No data received"})
+    return jsonify(data)
+
+
 
 
 
