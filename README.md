@@ -100,9 +100,9 @@ Working on this project gave me practical experience in:
 I utilized AI tools to help me for creating the database with the .sql file and quiz.py file. He also helped me to understand api calls. I used AI to help me with the README file.
 ## How to Run the Project
 
-1. Clone the repository in terminal: git clone https://github.com/Zanixpy/projectCS50x
-   cd <your-repo-name>
-2. Install the required dependencies: pip install -r requirements.txt
-3. Create the database by running the following command in terminal: python quiz.py
-4. Start the Flask application: flask run
-5. Open your web browser with the URL provided in the terminal
+1. Clone the repository in terminal: git clone https://github.com/Zanixpy/projectCS50x project
+2. Navigate into the project directory: cd project
+3. Install the required dependencies: pip install -r requirements.txt
+4. Create the database by running the following command in terminal: python quiz.py
+5. Start the Flask application: flask run
+6. Open your web browser with the URL provided in the terminal
