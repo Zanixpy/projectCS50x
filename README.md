@@ -1,5 +1,5 @@
 # Quiz Web Application
-#### Video Demo: <URL HERE>
+#### Video Demo: <https://youtu.be/cGZFj4hOmh4>
 #### Description:
 
 This project is a **web-based quiz application** built with **Flask (Python)**, **SQLite** for persistent data storage, and **JavaScript** for dynamic user interaction. It is my final project for **CS50x 2025**. The application allows users to select a quiz theme between anime or manhwa, answer a short set of multiple-choice questions, receive an immediate score, and then return to the home page to try again or choose a different theme.
